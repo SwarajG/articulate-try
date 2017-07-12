@@ -5,9 +5,6 @@ import {
   Col,
 } from 'antd';
 
-import Sortable from '../../src/';
-import DemoHOCItem from './DemoHOCItem.js';
-
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
 import '../App.css';
