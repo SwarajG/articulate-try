@@ -5,6 +5,9 @@ import {
   Col,
 } from 'antd';
 
+import Sortable from '../../src/';
+import DemoHOCItem from './DemoHOCItem.js';
+
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
 import '../App.css';
@@ -169,22 +172,31 @@ export default class ArticulateIndex extends React.Component {
     this.forceUpdate();
   }
 
+  handleSort(data) {
+    console.log(data);
+    this.setState({
+      result: data,
+    });
+  }
+
   renderAllSection = () => {
     const { cards } = this.state;
     return cards.map((item, index) => {
       return (
-        <CardRow
-          number={index}
-          name={item.name}
-          type={item.rowType}
-          stateType={item.stateType}
-          key={`${item.name}${index}`}
-          handleChange={this.handleChange}
-          handleKeyPress={this.handleKeyPress}
-          onBlur={this.onBlur}
-          onFocus={this.onFocus}
-          deleteCard={this.deleteCard}
-        />
+        <DemoHOCItem className="vertical" sortData={item} key={index}>
+          <CardRow
+            number={index}
+            name={item.name}
+            type={item.rowType}
+            stateType={item.stateType}
+            key={`${item.name}${index}`}
+            handleChange={this.handleChange}
+            handleKeyPress={this.handleKeyPress}
+            onBlur={this.onBlur}
+            onFocus={this.onFocus}
+            deleteCard={this.deleteCard}
+          />
+        </DemoHOCItem>
       );
     });
   }
@@ -217,9 +229,11 @@ export default class ArticulateIndex extends React.Component {
                   onFocus={this.onFocus}
                 />
               </div>
-              {
-                this.renderAllSection()
-              }
+              <Sortable onSort={this.handleSort} className="vertical-container" direction="vertical">
+                {
+                  this.renderAllSection()
+                }
+              </Sortable>
             </div>
           </Col>
         </Row>
